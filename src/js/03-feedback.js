@@ -21,10 +21,16 @@ function onFormSubmit(evt) {
   if (!email.value || !message.value) {
     alert('Please, fill in all fields!');
   } else {
-    console.log(JSON.parse(localStorage.getItem(LS_KEY)));
+    console.log(load(LS_KEY));
     localStorage.removeItem(LS_KEY);
     evt.currentTarget.reset();
   }
+}
+
+const storageData = load(LS_KEY);
+if (storageData) {
+  email.value = storageData.email;
+  message.value = storageData.message;
 }
 
 function load(key) {
@@ -34,10 +40,4 @@ function load(key) {
   } catch (error) {
     console.error('Get state error: ', error.message);
   }
-}
-
-const storageData = load(LS_KEY);
-if (storageData) {
-  email.value = storageData.email;
-  message.value = storageData.message;
 }
